@@ -1,4 +1,4 @@
-function [mssim, ssim_map] = ssim(img1_filename, img2_filename, K, window, L)
+function [mssim, ssim_map] = edged_ssim(img1_filename, img2_filename, K, window, L)
 
 % ========================================================================
 % SSIM Index with automatic downsampling, Version 1.0
@@ -188,15 +188,15 @@ if(f>1)
 
     img1 = img1(1:f:end,1:f:end);
     img2 = img2(1:f:end,1:f:end);
-    
 end
 
 C1 = (K(1)*L)^2;
 C2 = (K(2)*L)^2;
 window = window/sum(sum(window));
 
-edge1 = edge(img1(:,:,1), 'sobel');
-edge2 = edge(img2(:,:,1), 'sobel');
+% 边缘检测时使用绿色通道——“盗绿”现象使绿色通道边缘精确度更高
+edge1 = edge(img1(:,:,2), 'sobel');
+edge2 = edge(img2(:,:,2), 'sobel');
 
 img1 = ratio(1) * img1 .* edge1 + ratio(2) * img1 .* ~edge1;
 img2 = ratio(1) * img2 .* edge2 + ratio(2) * img2 .* ~edge2;

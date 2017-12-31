@@ -26,7 +26,7 @@ error_r = abs(double(image1(:, :, 1) - image2(:, :, 1)));
 error_g = abs(double(image1(:, :, 2) - image2(:, :, 2)));
 error_b = abs(double(image1(:, :, 3) - image2(:, :, 3)));
 
-% 将RGB色彩空间的差值分量线性变换至YUV色彩空间
+% 将RGB色彩空间的误差分量线性变换至YUV色彩空间
 error_y = 0.299 * error_r + 0.587 * error_g + 0.114 * error_b;
 error_u = -0.147 * error_r - 0.289 * error_g + 0.436 * error_b;
 error_v = 0.615 * error_r - 0.515 * error_g - 0.100 * error_b;

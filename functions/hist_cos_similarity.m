@@ -14,7 +14,7 @@ function [cos_similarity] = hist_cos_similarity(image1_filename, image2_filename
 image1 = imread(image1_filename);
 image2 = imread(image2_filename);
 
-% 调整图像尺寸至相同(双三次插值)
+% 调整图像尺寸至相同(双三次插值)——保证直方图统计的像素总数相等
 [m, n, ~] = size(image1);
 image2 = imresize(image2, [m, n], 'bicubic');
 
@@ -28,5 +28,4 @@ hist2 = histcounts(image2, num_bins);
 
 % 计算余弦
 cos_similarity = dot(hist1, hist2) / (norm(hist1) * norm(hist2));
-
 return
